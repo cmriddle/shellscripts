@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	nemo $(pwd)
+	
+	echo "open NEMO window in directory : $(pwd)"
+	exit 1
+fi
+
+if [ $1 = -nau ]; then
+	nautilus $(pwd)
+	echo "open NAUTILUS window in directory : $(pwd)"
+	exit 1
+fi
+

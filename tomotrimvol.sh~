@@ -1,0 +1,26 @@
+#!/bin/bash
+if [ $# -lt 1 ]; then
+	echo "error.. need args"
+	exit 1
+fi
+
+for arg in "$@"
+do
+	
+	echo $arg
+	mid=${arg%.*} 	
+	mid=${mid}"_flip.rec"
+	trimvol -yz $arg $mid
+	midd=${mid%.*} 	
+	midd=${midd}"int.rec"
+	midsize=$(header -size $mid)
+	midsection=${midsize##*\ }
+	trimvol -sz $(($midsection/2-25)),$(($midsection/2+25)) $mid $midd
+	rm $mid
+	echo "$midd generated, $arg finished successfully!!!!"
+	echo "midsection is $midsection, contrast range is $(($midsection/2-25)),$(($midsection/2+25))"
+done
+echo "commond is $0"
+echo "args are: $arg"
+
+
